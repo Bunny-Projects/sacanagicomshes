@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedidos da Minha Loja</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Pedidos da Minha Loja</h1>
+    </header>
+
+    <div class="container">
+        <img src="images/produto.jpg" alt="Produto" class="product-image">
+
+        <form action="https://api.whatsapp.com/send" method="get" target="_blank">
+            <input type="hidden" name="phone" value="+5569996056992">
+            <label for="produto">Produto:</label>
+            <input type="text" id="produto" name="text" value="teu consolo ai otario" readonly>
+
+            <label for="quantidade">Quantidade:</label>
+            <input type="number" id="quantidade" name="quantidade" required>
+
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required>
+
+            <label for="endereco">Endereço:</label>
+            <textarea id="endereco" name="endereco" rows="3" required></textarea>
+
+            <input type="hidden" name="text" value="" id="mensagem">
+            <input type="button" value="Enviar Pedido" onclick="enviarMensagem()">
+        </form>
+    </div>
+
+    <script>
+        function enviarMensagem() {
+            const produto = document.getElementById('produto').value;
+            const quantidade = document.getElementById('quantidade').value;
+            const nome = document.getElementById('nome').value;
+            const endereco = document.getElementById('endereco').value;
+
+            const mensagem = `Pedido: ${produto}\nQuantidade: ${quantidade}\nNome: ${nome}\nEndereço: ${endereco}`;
+            document.getElementById('mensagem').value = mensagem;
+
+            const form = document.querySelector('form');
+            form.action = `https://api.whatsapp.com/send?phone=+5569996056992&text=${encodeURIComponent(mensagem)}`;
+
+            form.submit();
+        }
+    </script>
+</body>
+</html>
